@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+ <div id="content">
+  {% block content %}
+      {% endblock %}
+    </div>
+<div id="sidebar">
+  <ul class="sidebar-nav">
+
+
+   {% if user.is_authenticated %}
+      <h1><li><a href="test_arh/">TEST</a></li></h1>
+     <li>User: {{ user.get_username }}</li>
+      <li><a href="{% url 'logout'%}">Logout</a></li>
+   {% else %}
+     <li><a href="{% url 'login'%}">Login</a></li>
+   {% endif %}
+  </ul>
+</body>
+</html>
