@@ -29,6 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '45.89.66.196',
     'vds1987547.my-ihor.ru',
+    'localhost',
 ]
 
 
