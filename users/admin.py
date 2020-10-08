@@ -9,10 +9,10 @@ from .models import CustomUser
 
 class CustomUserAdmin(UserAdmin):
     #fieldsets = UserAdmin.fieldsets + ((None, {'fields': ('answers','isComplit','points','curent_question')}),)
-    fieldsets = ((None, {'fields': ('answers', 'isComplit', 'points', 'curent_question')}),)
+    fieldsets = ((None, {'fields': ('username', 'answers', 'isComplit', 'points', 'curent_question')}),)
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
-    list_display = ['email', 'username', 'answers','isComplit','points']
+    list_display = ['username', 'answers','isComplit','points']
 
 admin.site.register(CustomUser, CustomUserAdmin)

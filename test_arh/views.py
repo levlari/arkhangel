@@ -5,6 +5,7 @@ from .models import Question, Answers
 #user_points = 0
 
 def test_arh(request):
+
     if request.user.username == 'AnonymousUser':  return redirect('')
     question_ids = Question.objects.all().values_list('id', 'body', 'title') #,'answers', 'body', 'title')
     if request.user.curent_question > len(question_ids):
@@ -17,9 +18,18 @@ def test_arh(request):
     print('correct_answer is ' + str(correct_answer[0]))
 
     if request.method == 'POST':
+
+        try:
+            request.user.answers+=str(request.POST['radio'])
+        except:
+            return render(request,
+                          'test_arh/question.html',
+                          {'question': question,
+                           'answers': answers,
+                           })
+
         request.user.curent_question += 1
-        print('Сработал ПОСТ')
-        request.user.answers+=str(request.POST['radio'])
+
         print('radio is ' + str(request.POST['radio']))
         if str(request.POST['radio']) == str(correct_answer[0]):
 
