@@ -26,7 +26,10 @@ SECRET_KEY = '9i#5o#qj3h1e%8d=lti$-t@23%@4xt2f=0qn3ctj@dv%kcb%gn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '45.89.66.196',
+    'vds1987547.my-ihor.ru',
+]
 
 
 # Application definition

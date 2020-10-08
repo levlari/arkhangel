@@ -7,12 +7,12 @@
         <h1>Тест закончен, {{ username }}</h1>
         <h2> набрано баллов = {{ points }}</h2>
         <p>
-            данные ответы {{ answers }}
+
         </p>
 
-      <li><a href="{% url 'logout'%}?">Logout</a></li>
+      <li><a href="{% url 'logout'%}?">Выход</a></li>
     {% else %}
-        <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+        <li><a href="{% url 'login'%}?next={{request.path}}">ВХОД</a></li>
     {% endif %}
 
 {% endblock %}

@@ -7,6 +7,8 @@ from .models import Question, Answers
 def test_arh(request):
     if request.user.username == 'AnonymousUser':  return redirect('')
     question_ids = Question.objects.all().values_list('id', 'body', 'title') #,'answers', 'body', 'title')
+    if request.user.curent_question > len(question_ids):
+        return redirect('/final/' )
     print('question_id = '+str(request.user.curent_question))
     print ('question_len = ' + str(len(question_ids)))
     question =  get_object_or_404(Question, id = request.user.curent_question)
