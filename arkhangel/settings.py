@@ -24,15 +24,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '9i#5o#qj3h1e%8d=lti$-t@23%@4xt2f=0qn3ctj@dv%kcb%gn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = [
-    '45.89.66.196',
-    'vds1987547.my-ihor.ru',
-    'localhost',
-]
-
-
+if DEBUG:
+    ALLOWED_HOSTS = ['*']
+else:
+    ALLOWED_HOSTS = [
+        '45.89.66.196',
+        'vds1987547.my-ihor.ru',
+        'localhost',
+    ]
 # Application definition
 
 INSTALLED_APPS = [
@@ -127,3 +128,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+if DEBUG:
+    STATIC_DIR = os.path.join(BASE_DIR, 'static')
+    STATICFILES_DIRS = [
+        STATIC_DIR,
+        '/var/www/static/',
+    ]
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+    STATICFILES_FINDERS = (
+        'django.contrib.staticfiles.finders.FileSystemFinder',
+        'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    )
+MEDIA_URL = '/media/'
+MEDIA_ROOT = '/media/'
