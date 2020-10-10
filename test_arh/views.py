@@ -7,15 +7,18 @@ from .models import Question, Answers
 def test_arh(request):
 
     if request.user.username == 'AnonymousUser':  return redirect('')
-    question_ids = Question.objects.all().values_list('id', 'body', 'title') #,'answers', 'body', 'title')
+    question_ids = Question.objects.all().values_list('id', 'body', 'title','test_id') #,'answers', 'body', 'title')
+    question_ids = question_ids.filter(test_id = request.user.curent_test)
+#    print (question_ids.all())
     if request.user.curent_question > len(question_ids):
         return redirect('/final/' )
-    print('question_id = '+str(request.user.curent_question))
-    print ('question_len = ' + str(len(question_ids)))
-    question =  get_object_or_404(Question, id = request.user.curent_question)
+#    print('question_id = '+str(request.user.curent_question))
+#    print ('question_len = ' + str(len(question_ids)))
+    question =  get_object_or_404(Question, Num = request.user.curent_question, test_id = request.user.curent_test)
+#    print (question.test_id)
     answers = question.answers.filter(active=True)
     correct_answer = answers.filter(correct_answer=True)
-    print('correct_answer is ' + str(correct_answer[0]))
+#    print('correct_answer is ' + str(correct_answer[0]))
 
     if request.method == 'POST':
 
@@ -30,7 +33,7 @@ def test_arh(request):
 
         request.user.curent_question += 1
 
-        print('radio is ' + str(request.POST['radio']))
+#        print('radio is ' + str(request.POST['radio']))
         if str(request.POST['radio']) == str(correct_answer[0]):
 
             request.user.points += 1# прибавляем счётчик правильных ответов
@@ -38,14 +41,14 @@ def test_arh(request):
 
 
 
-    print('correct_answer is '+ str(correct_answer[0]))
+#    print('correct_answer is '+ str(correct_answer[0]))
 
     request.user.save()
     if request.user.curent_question > len(question_ids):
         return redirect('/final/' )
-    print('question_id = '+str(request.user.curent_question))
-    print ('question_len = ' + str(len(question_ids)))
-    question =  get_object_or_404(Question, id = request.user.curent_question)
+#    print('question_id = '+str(request.user.curent_question))
+#    print ('question_len = ' + str(len(question_ids)))
+    question =  get_object_or_404(Question, Num = request.user.curent_question, test_id = request.user.curent_test)
     answers = question.answers.filter(active=True)
     return render(request,
                   'test_arh/question.html',

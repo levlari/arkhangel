@@ -3,7 +3,7 @@ from .models import Question, Answers
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ('title','body')
+    list_display = ('title','body', 'Num', 'test_id')
     #list_filter = ('status', 'created', 'publish', 'author')
     search_fields = ('title', 'body')
     #prepopulated_fields = {'slug': ('title',)}
@@ -14,6 +14,6 @@ class QuestionAdmin(admin.ModelAdmin):
 class AnswersAdmin(admin.ModelAdmin):
     list_display = ('name',  'body', 'active', 'correct_answer','question')
     list_filter = ('active', 'correct_answer')
-    search_fields = ('name',  'body')
+    search_fields = ('name',  'body','question')
 
 # Register your models here.

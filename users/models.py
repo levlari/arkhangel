@@ -7,3 +7,4 @@ class CustomUser(AbstractUser):
     isComplit  = models.BooleanField (default=False)
     points = models.IntegerField (default=0)
     curent_question = models.IntegerField (default=1)
+    curent_test = models.IntegerField(default=1)

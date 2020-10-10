@@ -17,6 +17,8 @@ class Question(models.Model):
    #     ('draft', 'Draft'),
    #     ('published', 'Published'),
    # )
+    test_id = models.IntegerField(default=1)
+    Num = models.IntegerField(default=1)
     title = models.CharField(max_length=250)
    # tags = TaggableManager()
    # slug = models.SlugField(max_length=250, unique_for_date='publish')
