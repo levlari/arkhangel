@@ -4,13 +4,14 @@
     {% if user.is_authenticated %}
       <li><a href="{% url 'logout'%}?">ВЫХОД</a></li>
 
-
+<h2> {{ time_to_live }}</h2>
  <h1>{{ question.title }}</h1>
 
 
 <p>
 
 </p>
+
 
 <h2> {{ question.body }}</h2>
         <form action="." method="post">
