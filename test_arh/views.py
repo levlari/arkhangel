@@ -23,7 +23,7 @@ def test_arh(request):
     if request.method == 'POST':
 
         try:
-            request.user.answers+=str(request.POST['radio'])
+            request.user.answers+=str(request.POST['radio']) + '; '
         except:
             return render(request,
                           'test_arh/question.html',
