@@ -1,9 +1,14 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
+
+
  <title>{% block title %}{% endblock %}</title>
 </head>
 
+<body onload="refresh();">
+<span id="timer"></span>
  <div id="content">
   {% block content %}
       {% endblock %}
