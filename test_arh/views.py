@@ -59,7 +59,7 @@ def test_arh(request):
                   'test_arh/question.html',
                   {'question': question,
                    'answers': answers,
-                   'time_to_live' : str(time_to_live),
+                   'time_to_live' : time_to_live,
                    }
 )
 
