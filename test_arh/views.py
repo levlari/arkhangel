@@ -13,6 +13,8 @@ def test_arh(request):
     question_ids = question_ids.filter(test_id = request.user.curent_test)
 #    print (question_ids.all())
     if request.user.curent_question > len(question_ids) or (timeinsec(request.user.time_begin)+15*60) < timeinsec(datetime.datetime.now().time()):
+        request.user.curent_question = len(question_ids) +1
+        request.user.save()
         return redirect('/final/' )
 #    print('question_id = '+str(request.user.curent_question))
 #    print ('question_len = ' + str(len(question_ids)))
