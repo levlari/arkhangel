@@ -19,7 +19,7 @@ def test_arh(request):
 #    print('question_id = '+str(request.user.curent_question))
 #    print ('question_len = ' + str(len(question_ids)))
     question =  get_object_or_404(Question, Num = request.user.curent_question, test_id = request.user.curent_test)
-    time_to_live = timeintime (timeinsec(request.user.time_begin)+15*60 -timeinsec(datetime.datetime.now().time()))
+    time_to_live = timeintime (timeinsec(request.user.time_begin)+10*60 -timeinsec(datetime.datetime.now().time()))
     answers = question.answers.filter(active=True)
     correct_answer = answers.filter(correct_answer=True)
 
