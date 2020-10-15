@@ -12,7 +12,7 @@ def test_arh(request):
     question_ids = Question.objects.all().values_list('id', 'body', 'title','test_id') #,'answers', 'body', 'title')
     question_ids = question_ids.filter(test_id = request.user.curent_test)
 #    print (question_ids.all())
-    if request.user.curent_question > len(question_ids) or (timeinsec(request.user.time_begin)+15*60) < timeinsec(datetime.datetime.now().time()):
+    if request.user.curent_question > len(question_ids) or (timeinsec(request.user.time_begin)+10*60) < timeinsec(datetime.datetime.now().time()):
         request.user.curent_question = len(question_ids) +1
         request.user.save()
         return redirect('/final/' )
