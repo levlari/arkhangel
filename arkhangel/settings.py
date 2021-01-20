@@ -64,7 +64,7 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR,],
+        'DIRS': [TEMPLATE_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -90,7 +90,8 @@ DATABASES = {
     }
 }
 LOGIN_REDIRECT_URL = '/'
-AUTH_USER_MODEL = 'users.CustomUser' # новое
+AUTH_USER_MODEL = 'users.CustomUser'
+# новое
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
