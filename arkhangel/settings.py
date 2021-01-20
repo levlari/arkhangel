@@ -30,8 +30,9 @@ if DEBUG:
     ALLOWED_HOSTS = ['*']
 else:
     ALLOWED_HOSTS = [
-        '45.89.66.196',
-        'vds1987547.my-ihor.ru',
+        '185.22.232.60',
+        'p587936.kvmvps',
+        'p587936.kvm.ihc.ru',
         'localhost',
     ]
 # Application definition
