@@ -32,12 +32,15 @@ function refresh()
 }
 //-->
 </script>
-{% block title %}{% endblock %}
+{% block title %}
+<link rel="shortcut icon" type="image/png" href="/favicon.ico">
+{% endblock %}
 
 {% block content %}
     {% if user.is_authenticated %}
       <li><a href="{% url 'logout'%}?">ВЫХОД</a></li>
 <body onload="refresh();">
+<link rel="shortcut icon" type="image/png" href="/favicon.ico">
 <h4>
 <span id="timer"></span>
 </h4>
@@ -54,7 +57,7 @@ function refresh()
 {% for answer in answers %}
     <p><input id="radio" type="radio" name= radio value= '{{ answer.body }}'  >
     <label >
-    {{ answer.name }}{{ answer.body }}
+    {{ answer.name }}  {{ answer.body }}
      </label>
         </p>
 {% endfor %}
