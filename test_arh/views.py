@@ -9,11 +9,13 @@ import datetime
 def test_arh(request):
     if request.method == 'GET' and request.user.curent_question == 1: #если 1 вопрос
         request.user.time_begin = datetime.datetime.now().time() #засекаем время
+        request.user.date_begin = datetime.date.today()
+        request.user.save()
     if request.user.username == 'AnonymousUser':  return redirect('')
     question_ids = Question.objects.all().values_list('id', 'body', 'title','test_id') #,'answers', 'body', 'title')
     question_ids = question_ids.filter(test_id = request.user.curent_test)
 #    print (question_ids.all())
-    if request.user.curent_question > len(question_ids) or (timeinsec(request.user.time_begin)+15*60) < timeinsec(datetime.datetime.now().time()):
+    if request.user.curent_question > len(question_ids) or (timeinsec(request.user.time_begin)+15*60) < timeinsec(datetime.datetime.now().time()) or request.user.date_begin < datetime.date.today():
         request.user.curent_question = len(question_ids) +1
         request.user.save()
         return redirect('/final/' )
