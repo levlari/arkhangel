@@ -15,14 +15,14 @@ def test_arh(request):
     question_ids = Question.objects.all().values_list('id', 'body', 'title','test_id') #,'answers', 'body', 'title')
     question_ids = question_ids.filter(test_id = request.user.curent_test)
 #    print (question_ids.all())
-    if request.user.curent_question > len(question_ids) or (timeinsec(request.user.time_begin)+15*60) < timeinsec(datetime.datetime.now().time()) or request.user.date_begin < datetime.date.today():
+    if request.user.curent_question > len(question_ids) or (timeinsec(request.user.time_begin)+10*60) < timeinsec(datetime.datetime.now().time()) or request.user.date_begin < datetime.date.today():
         request.user.curent_question = len(question_ids) +1
         request.user.save()
         return redirect('/final/' )
 #    print('question_id = '+str(request.user.curent_question))
 #    print ('question_len = ' + str(len(question_ids)))
     question =  get_object_or_404(Question, Num = request.user.curent_question, test_id = request.user.curent_test)
-    time_to_live = timeintime (timeinsec(request.user.time_begin)+15*60 -timeinsec(datetime.datetime.now().time()))
+    time_to_live = timeintime (timeinsec(request.user.time_begin)+10*60 -timeinsec(datetime.datetime.now().time()))
     answers = question.answers.filter(active=True)
     correct_answer = answers.filter(correct_answer=True)
 
