@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Question, Answers
+from .models import Question, Answers, Test
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
@@ -13,7 +13,12 @@ class QuestionAdmin(admin.ModelAdmin):
 @admin.register(Answers)
 class AnswersAdmin(admin.ModelAdmin):
     list_display = ('name',  'body', 'active', 'correct_answer','question')
-    list_filter = ('active', 'correct_answer')
-    search_fields = ('name',  'body','question')
+    list_filter = ('active', 'correct_answer', 'question')
+   # search_fields = ('name',  'body','question')
 
+@admin.register(Test)
+class TestAdmin(admin.ModelAdmin):
+    list_display = ('test_id',  'TimeToTest')
+#    list_filter = ('test_id')
+ #   search_fields = ('test_id')
 # Register your models here.

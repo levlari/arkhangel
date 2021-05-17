@@ -7,17 +7,30 @@ from django.contrib.auth.models import User
 #    def get_queryset(self):
 #        return super().get_queryset().filter(status='published')
 
+class Test(models.Model):
+    objects = models.Manager()
+    test_id = models.IntegerField(default=1)
+    TimeToTest = models.TimeField()
+
+    def __int__(self):
+        return self.test_id
+
+    def __str__(self):
+        return str(self.test_id)
 
 class Question(models.Model):
 
     objects = models.Manager()  # Менеджер по умолчанию.
 
-    #published = PublishedManager()  # Наш новый менеджер.
-    #STATUS_CHOICES = (
+   #published = PublishedManager()  # Наш новый менеджер.
+   #STATUS_CHOICES = (
    #     ('draft', 'Draft'),
    #     ('published', 'Published'),
    # )
-    test_id = models.IntegerField(default=1)
+    test_id = models.ForeignKey(Test,
+                             on_delete=models.CASCADE,
+                             related_name='question')
+
     Num = models.IntegerField(default=1)
     title = models.CharField(max_length=250)
    # tags = TaggableManager()
@@ -38,10 +51,11 @@ class Question(models.Model):
    #     ordering = ('-publish',)
 
     def __str__(self):
-        return self.body
+        return str(self.test_id)+ ' - '  + str(self.Num)+'  '+ self.body
 
 
 class Answers(models.Model):
+    objects = models.Manager()
     question = models.ForeignKey(Question,
                              on_delete=models.CASCADE,
                              related_name='answers')
@@ -49,7 +63,6 @@ class Answers(models.Model):
     body = models.TextField()
     active = models.BooleanField(default=True)
     correct_answer = models.BooleanField(default=False)
-
 
     def __str__(self):
         return self.body
