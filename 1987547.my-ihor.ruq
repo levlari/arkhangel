@@ -1,9 +1,0 @@
-[0;1;32m●[0m gunicorn.socket - gunicorn socket
-   Loaded: loaded (/etc/systemd/system/gunicorn.socket; enabled; vendor preset: enabled)
-   Active: [0;1;32mactive (running)[0m since Thu 2020-10-08 13:11:31 UTC; 50min ago
-   Listen: /run/gunicorn.sock (Stream)
-    Tasks: 0 (limit: 545)
-   Memory: 0B
-   CGroup: /system.slice/gunicorn.socket
-
-Oct 08 13:11:31 vds1987547.my-ihor.ru systemd[1]: Listening on gunicorn socket.
