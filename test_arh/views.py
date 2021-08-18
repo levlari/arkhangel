@@ -10,8 +10,8 @@ def test_arh(request):
         request.user.time_begin = datetime.datetime.now().time()  # засекаем время
         request.user.date_begin = datetime.date.today()  # и дату
         request.user.save()  # сохраняем
-
-    if request.user.username == 'AnonymousUser':  # не авторизовался
+    # отправляем на стартовую если не авторизовался
+    if request.user.username == 'AnonymousUser':
         return redirect('')
 
     # получаем набор вопросов для теста пользователя, время на этот тест
