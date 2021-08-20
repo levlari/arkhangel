@@ -1,10 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
 from .models import Question, Test
 import datetime
 
 
-def test_arh(request):
+def testing(request):
     # проверяем запрос на начало теста
     if request.method == 'GET' and request.user.curent_question == 1:  # если 1 вопрос
         request.user.time_begin = datetime.datetime.now().time()  # засекаем время
@@ -111,9 +110,3 @@ def timeinsec(intime: datetime.time):
 def timeintime(inseconds: int):
     return datetime.time(hour=inseconds // (60 * 60), minute=(inseconds % (60 * 60)) // 60,
                          second=(inseconds % (60 * 60)) % 60)
-
-
-# загружаем favicon.ico
-def my_image(request):
-    image_data = open("/var/www/arkhangel/favicon.ico", "rb").read()
-    return HttpResponse(image_data, mimetype="image/png")

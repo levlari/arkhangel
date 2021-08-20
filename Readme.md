@@ -1,3 +1,14 @@
+development start:
+ 
+create user 
+
+`python manage.py createsuperuser `
+
+Starting development server at http://127.0.0.1:8000/ 
+
+`python manage.py runserver`
+
+
 Python 3.8
 Django 3.1.1
 Проект разработа для **МАУ ДО "Центр "Архангел"**. Для удалённого проведения теоретических этапов соревнований "Зарница", "Зарничка", "Вахта памяти"
