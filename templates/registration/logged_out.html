@@ -1,7 +1,7 @@
-
+{% extends "base.html" %}
 
 {% block content %}
-<p>ВЫ ВЫШЛИ!</p>
+<p>ВЫ ВЫШЛИ!Для тестирования необходимо войти.</p>
 
-<a href="{% url 'login'%}">Для тестирования необходимо войти.</a>
+<a href="{% url 'login'%}" class="button">Войти.</a>
 {% endblock %}

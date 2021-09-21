@@ -1,0 +1,37 @@
+version: '3'
+
+
+services:
+  postgres_db:
+    build:
+      context: ./docker/DB/
+      dockerfile: Dockerfile
+    environment:
+       - POSTGRES_PASSWORD=admin
+    volumes:
+       - ./docker/DB/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+    - "5432:5432"
+  web:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/usr/src/app
+      - /static:/static
+    depends_on:
+      - postgres_db
+
+
+  nginx:
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/usr/src/app
+      - /static:/static
+    depends_on:
+      - web
+      - postgres_db
+    ports:
+    - "80:80"

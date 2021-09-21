@@ -1,0 +1,5 @@
+CREATE USER admin WITH PASSWORD 'admin';
+
+CREATE DATABASE arkhangel_db;
+
+GRANT ALL PRIVILEGES ON DATABASE arkhangel_db TO admin

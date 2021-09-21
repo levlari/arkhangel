@@ -1,4 +1,15 @@
 {% extends "base.html" %}
-{% block title %}Начать тест{% endblock %}
+{% block title %}Начать тестирование{% endblock %}
 {% block content %}
- {% endblock %}
+        <div id="sidebar" class="sidebar-nav">
+
+                {% if user.is_authenticated %}
+                <a href="test_arh/" class="button">Начать тест</a>
+                <p>Вы вошли как: {{ user.get_username }}</p>
+                <p><a href="{% url 'logout'%}" class="button">Выход</a></p>
+                {% else %}
+                <p><a href="{% url 'login'%}" class="button">ВХОД</a></p>
+                {% endif %}
+
+        </div>
+{% endblock %}

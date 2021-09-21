@@ -1,72 +1,60 @@
-<script language="JavaScript" type="text/javascript">
-<!--
-// выставляем секунды
-var sec= {{ time_to_live.second }};
-// выставляем минуты
-var min= {{ time_to_live.minute }} ;
-
-function refresh()
-{
-	sec--;
-	if(sec==-01){sec=59; min=min-1;}
-	else{min=min;}
-	if(sec<=9){sec="0" + sec;}
-	time=(min<=9 ? "0"+min : min) + ":" + sec;
-	if(document.getElementById){timer.innerHTML=time;}
-	inter=setTimeout("refresh()", 1000);
-	// действие, если таймер 00:00
-	if(min=='00' && sec=='00'){
-		sec="00";
-		clearInterval(inter);
-		/* выводим сообщение в элемент с id="tut", например <div id="tut"></div> */
-                tut.innerHTML="Таймер завершил свою работу!";
-
-                /* либо модальное окно */
-                //alert('Таймер завершил свою работу!');
-
-                /* либо переход на какой-то адрес */
-		//window.location='http://www.net-f.ru/';
-
-                /* либо любой другой Ваш код */
-	}
-}
-//-->
-</script>
-{% block title %}
-<link rel="shortcut icon" type="image/png" href="/favicon.ico">
-{% endblock %}
-
+{% extends "base.html" %}
+{% block title %}Тестирование{% endblock %}
 {% block content %}
-    {% if user.is_authenticated %}
-      <li><a href="{% url 'logout'%}?">ВЫХОД</a></li>
-<body onload="refresh();">
-<link rel="shortcut icon" type="image/png" href="/favicon.ico">
-<h4>
-<span id="timer"></span>
-</h4>
- <h1>{{ question.title }}</h1>
+    <script language="JavaScript" type="text/javascript">
+    <!--
+    // выставляем секунды
+    var sec= {{ time_to_live.second }};
+    // выставляем минуты
+    var min= {{ time_to_live.minute }} ;
 
+    function refresh()
+    {
+        sec--;
+        if(sec==-01){sec=59; min=min-1;}
+        else{min=min;}
+        if(sec<=9){sec="0" + sec;}
+        time=(min<=9 ? "0"+min : min) + ":" + sec;
+        if(document.getElementById){timer.innerHTML=time;}
+        inter=setTimeout("refresh()", 1000);
+        // действие, если таймер 00:00
+        if(min=='00' && sec=='00'){
+            sec="00";
+            clearInterval(inter);
+            /* выводим сообщение в элемент с id="tut", например <div id="tut"></div> */
+                    tut.innerHTML="Таймер завершил свою работу!";
+                    /* либо модальное окно */
+                    //alert('Таймер завершил свою работу!');
+                    /* либо переход на какой-то адрес */
+            //window.location='http://www.net-f.ru/';
 
-<p>
-
-</p>
-
-
-<h2> {{ question.body }}</h2>
-        <form action="." method="post">
-{% for answer in answers %}
-    <p><input id="radio" type="radio" name= radio value= '{{ answer.body }}'  >
-    <label >
-    {{ answer.name }}  {{ answer.body }}
-     </label>
-        </p>
-{% endfor %}
-
-        {% csrf_token %}
-        <p><input type="submit" value="Отправить ответ"></p>
-        </form>
-    {% else %}
-        <li><a href="{% url 'login'%}">ВХОД</a></li>
-    {% endif %}
+                    /* либо любой другой Ваш код */
+        }
+    }
+    //-->
+    </script>
+    <body onload="refresh();">
+        {% if user.is_authenticated %}
+            <p><a href="{% url 'logout'%}?" class="button">ВЫХОД</a></p>
+                <h4>
+                    <span id="timer"></span>
+                </h4>
+                <h1>{{ question.title }}</h1>
+                <p></p>
+                <h2>{{ question.body }}</h2>
+                <form action="." method="post">
+                    {% for answer in answers %}
+                        <p><input id="radio" type="radio" name= radio value= '{{ answer.body }}'  >
+                            <label >
+                                {{ answer.name }}  {{ answer.body }}
+                            </label>
+                        </p>
+                    {% endfor %}
+                    {% csrf_token %}
+                    <p><input type="submit" value="Отправить ответ"></p>
+                </form>
+                {% else %}
+                <p><a href="{% url 'login'%}" class="button">ВХОД</a></p>
+        {% endif %}
+    </body>
 {% endblock %}
-</body>

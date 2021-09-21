@@ -1,30 +1,20 @@
-{% load static %}
+{%load static%}
 <!DOCTYPE html>
 <html>
-<head>
-
-<link rel="shortcut icon" type="image/png" href="/favicon.ico">
- <title>{% block title %}{% endblock %}</title>
-</head>
-
-<body onload="refresh();">
-<span id="timer"></span>
- <div id="content">
-  {% block content %}
-      {% endblock %}
-    </div>
-<div id="sidebar">
-  <ul class="sidebar-nav">
-
-
-   {% if user.is_authenticated %}
-      <h1><li><a href="test_arh/">Начать тест</a></li></h1>
-     <li>Вы вошли как: {{ user.get_username }}</li>
-      <li><a href="{% url 'logout'%}">Выход</a></li>
-   {% else %}
-     <li><a href="{% url 'login'%}">ВХОД</a></li>
-   {% endif %}
-  </ul>
-</div>
-</body>
+    <head>
+        <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}"/>
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+    <body onload="refresh();">
+        <script>
+            {% if message %}
+                alert('{{ message }}');
+            {% endif %}
+        </script>
+        <div id="content" class="content">
+        {% block content %}
+            {% endblock %}
+        </div>
+    </body>
 </html>

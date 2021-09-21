@@ -1,8 +1,11 @@
 from pathlib import Path
-import os
+
+BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
+# import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+# BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -13,16 +16,8 @@ SECRET_KEY = '9i#5o#qj3h1e%8d=lti$-t@23%@4xt2f=0qn3ctj@dv%kcb%gn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-if DEBUG:
-    ALLOWED_HOSTS = ['*']
-else:
-    ALLOWED_HOSTS = [
-        '46.254.19.85',
-        'p594274.kvmvps',
-        'p594274.kvm.ihc.ru',
-        'localhost',
-    ]
+DB_SQLite = False
+ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
@@ -34,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'test_arh.apps.TestArhConfig',
     'users.apps.UsersConfig',
+    'psycopg2',
 ]
 
 MIDDLEWARE = [
@@ -47,7 +43,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'arkhangel.urls'
-TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
+TEMPLATE_DIR = str(BASE_DIR / "templates")
 
 TEMPLATES = [
     {
@@ -70,13 +66,25 @@ WSGI_APPLICATION = 'arkhangel.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DB_SQLite:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'arkhangel_db',
+            'USER': 'admin',
+            'PASSWORD': 'admin',
+            'HOST': 'postgres_db',
+            'PORT': 5432
+
+        }
+    }
 LOGIN_REDIRECT_URL = '/'
 AUTH_USER_MODEL = 'users.CustomUser'
 # новое
@@ -119,19 +127,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-if DEBUG:
-    STATICFILES_FINDERS = (
-        'django.contrib.staticfiles.finders.FileSystemFinder',
-        'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    )
-    STATIC_DIR = os.path.join(BASE_DIR, 'static')
-    STATICFILES_DIRS = [
-        STATIC_DIR,
-        '/var/www/static/',
-    ]
-else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-    STATICFILES_FINDERS = (
+
+# STATIC_DIR = str(BASE_DIR / 'static')
+
+STATIC_ROOT = BASE_DIR / 'static'
+STATICFILES_FINDERS = (
         'django.contrib.staticfiles.finders.FileSystemFinder',
         'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     )

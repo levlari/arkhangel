@@ -3,7 +3,8 @@ from django.db import models
 
 class Test(models.Model):
     objects = models.Manager()
-    test_id = models.IntegerField(default=1)
+    id = models.AutoField(primary_key=True)
+    test_id = models.IntegerField(default=1, unique=True)
     TimeToTest = models.TimeField()
 
     def __int__(self):
@@ -40,8 +41,3 @@ class Answers(models.Model):
         return self.body
 
 
-# class users_Answer(models.Model):
-#     given_answer = models.TextField()
-#     body = models.TextField()
-#     active = models.BooleanField(default=True)
-#     correct_answer = models.BooleanField(default=False)

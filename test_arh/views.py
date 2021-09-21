@@ -1,6 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Question, Test
+from django.core.exceptions import ObjectDoesNotExist
 import datetime
+from users.models import CustomUser
+
+
+DEFAULT_TIMETOTEST = '00:15:00'
 
 
 def testing(request):
@@ -9,27 +14,28 @@ def testing(request):
         request.user.time_begin = datetime.datetime.now().time()  # засекаем время
         request.user.date_begin = datetime.date.today()  # и дату
         request.user.save()  # сохраняем
-    # отправляем на стартовую если не авторизовался
     if request.user.username == 'AnonymousUser':
         return redirect('')
 
     # получаем набор вопросов для теста пользователя, время на этот тест
     question_ids = Question.objects.all().values_list('id', 'body', 'title', 'test_id')
+    print(request.user.curent_question, question_ids)
     question_ids = question_ids.filter(test_id=request.user.curent_test)
+    print('question_ids',request.user.curent_test, question_ids.all(), Question.objects.all())
     cur_test = Test.objects.get(test_id=request.user.curent_test)
     timetotest = cur_test.TimeToTest
-
-    print(cur_test.TimeToTest)
-
     # проверяем на законченность тест по вопросам или по времени,
     # переведя в секунды время начала и время на тест, текущую дату
     # учитываем смену дня
     cur_time_in_sec = timeinsec(datetime.datetime.now().time())
     if request.user.date_begin < datetime.date.today():
         cur_time_in_sec = cur_time_in_sec + 86400*(datetime.date.today() - request.user.date_begin).days
+
     if request.user.curent_question > len(question_ids) or (
             timeinsec(request.user.time_begin) + timeinsec(timetotest)) < cur_time_in_sec:
         # увеличиваем счётчик вопросов, и выходим на конечную страницу
+        print('/final/',request.user.curent_question, len(question_ids))
+        print(question_ids)
         request.user.curent_question = len(question_ids) + 1
         request.user.save()
         return redirect('/final/')
@@ -98,7 +104,25 @@ def test_arh_final(request):
 
 # открыть стартовую страницу
 def test_arh_start(request):
-    return render(request, 'test_arh/start.html', )
+    Test_obj = Test.objects.all()
+    message = ''
+    if not Test_obj:
+        default_test = Test()
+        default_test.TimeToTest = DEFAULT_TIMETOTEST
+        default_test.save()
+        message = 'Default test created'
+        print(message)
+        try:
+            admin_user = CustomUser.object.get(username='admin')
+            admin_user.curent_test = 1
+            admin_user.save()
+        except ObjectDoesNotExist:
+            pass
+    if message != '':
+        return render(request, 'test_arh/start.html',{'message':message} )
+    else:
+        return render(request, 'test_arh/start.html',)
+
 
 
 # перевод времени из формата(чч:мм:сс) в секунды(число)

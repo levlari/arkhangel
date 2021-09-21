@@ -1,12 +1,14 @@
-development start:
- 
-create user 
+`docker-compose build --no-cache`
 
-`python manage.py createsuperuser `
+`docker-compose up`
 
-Starting development server at http://127.0.0.1:8000/ 
+для заливки тестовой БД с учёткой admin@admin
 
-`python manage.py runserver`
+`docker exec -i arkhangel_web_1 python manage.py loaddata db.json`
+
+
+
+
 
 
 Python 3.8
